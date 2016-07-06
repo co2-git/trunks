@@ -1,0 +1,22 @@
+{
+  "name": "trunks",
+  "version": "1.0.0",
+  "description": "trunks ===",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/co2-git/trunks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/co2-git/trunks/issues"
+  },
+  "homepage": "https://github.com/co2-git/trunks#readme",
+  "dependencies": {
+    "lodash": "^4.13.1"
+  }
+}
