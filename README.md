@@ -1,7 +1,7 @@
 trunks
 ===
 
-Minimalistic stores for React Flux.
+Minimalistic stores for React.
 
 # Usage
 

@@ -2,6 +2,9 @@ export default class Trunk {
   constructor(elem) {
     this.elem = elem;
   }
+  get store() {
+    return this.constructor.store;
+  }
   get() {
     return this.constructor.store;
   }
