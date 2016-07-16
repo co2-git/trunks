@@ -111,11 +111,11 @@ function curryActions(actions, connector) {
 }
 
 function connect(Component, stores) {
-  return function (props) {
+  return function TrunkOpener() {
     return _react2.default.createElement(
       Connector,
       { stores: stores },
-      _react2.default.createElement(Component, props)
+      _react2.default.createElement(Component, stores)
     );
   };
 }

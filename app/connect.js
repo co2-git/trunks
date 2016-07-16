@@ -36,9 +36,11 @@ function curryActions(actions, connector) {
 }
 
 export default function connect(Component, stores) {
-  return props => (
-    <Connector stores={stores}>
-      <Component {...props} />
-    </Connector>
-  );
+  return function TrunkOpener () {
+    return (
+      <Connector stores={stores}>
+        <Component {...stores} />
+      </Connector>
+    );
+  }
 }
