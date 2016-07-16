@@ -28,14 +28,14 @@ In your view:
 ```javascript
 import React, {Component} from 'react';
 import {open} from 'trunks';
-import counter from './counter';
+import Counter from './Counter';
 
 class ClickCounter extends Component {
   render() {
-    const {counter} = this.props.trunks;
+    const {Counter} = this.props.trunks;
     return (
-      <button onClick={() => counter.click()}>
-        This button has been clicked {counter.store.clicked} times
+      <button onClick={() => Counter.click()}>
+        This button has been clicked {Counter.store.clicked} times
       </button>
     );
   }
@@ -43,5 +43,5 @@ class ClickCounter extends Component {
 
 // Don't forget to connect your component!
 // You can listen to more than one store
-export default open(ClickCounter, {counter});
+export default open(ClickCounter, {Counter});
 ```

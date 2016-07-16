@@ -5,10 +5,10 @@ import _ from 'lodash';
 class Connector extends Component {
   state = this.props.stores;
   parseChildProps() {
-    const props = {};
+    const props = {trunks: {}};
     for (const store_name of _.keys(this.props.stores)) {
       const store = new (this.props.stores[store_name])(this);
-      props[store_name] = store;
+      props.trunks[store_name] = store;
     }
     return props;
   }
