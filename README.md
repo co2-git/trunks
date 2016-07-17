@@ -27,7 +27,7 @@ In your view:
 
 ```javascript
 import React, {Component} from 'react';
-import {open} from 'trunks';
+import {connect} from 'trunks';
 import Counter from './Counter';
 
 class ClickCounter extends Component {
@@ -43,5 +43,5 @@ class ClickCounter extends Component {
 
 // Don't forget to connect your component!
 // You can listen to more than one store
-export default open(ClickCounter, {Counter});
+export default connect(ClickCounter, {Counter});
 ```
