@@ -1,4 +1,4 @@
 import Trunk from './Trunk';
 import connect from './connect';
 
-export {Trunk as default, connect, connect as open};
+export {Trunk as default, connect};

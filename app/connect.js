@@ -10,6 +10,7 @@ class Connector extends Component {
       const store = new (this.props.stores[store_name])(this);
       props.trunks[store_name] = store;
     }
+    console.log('childProps', props);
     return props;
   }
   render() {
@@ -36,10 +37,10 @@ function curryActions(actions, connector) {
 }
 
 export default function connect(Component, stores) {
-  return function TrunkOpener () {
+  return function TrunkOpener (props) {
     return (
       <Connector stores={stores}>
-        <Component {...stores} />
+        <Component {...props} />
       </Connector>
     );
   }
