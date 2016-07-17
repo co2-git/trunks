@@ -73,6 +73,7 @@ var Connector = function (_Component) {
         }
       }
 
+      console.log('childProps', props);
       return props;
     }
   }, {
@@ -111,11 +112,11 @@ function curryActions(actions, connector) {
 }
 
 function connect(Component, stores) {
-  return function TrunkOpener() {
+  return function TrunkOpener(props) {
     return _react2.default.createElement(
       Connector,
       { stores: stores },
-      _react2.default.createElement(Component, stores)
+      _react2.default.createElement(Component, props)
     );
   };
 }

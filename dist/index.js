@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.open = exports.connect = exports.default = undefined;
+exports.connect = exports.default = undefined;
 
 var _Trunk = require('./Trunk');
 
@@ -17,4 +17,3 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = _Trunk2.default;
 exports.connect = _connect2.default;
-exports.open = _connect2.default;
