@@ -26,10 +26,14 @@ var Trunk = function () {
   }]);
 
   function Trunk(elem) {
+    var mounting = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+
     _classCallCheck(this, Trunk);
 
     this.elem = elem;
-    this.constructor.trunks.push(this);
+    if (mounting) {
+      this.constructor.trunks.push(this);
+    }
   }
 
   _createClass(Trunk, [{
@@ -40,9 +44,7 @@ var Trunk = function () {
   }, {
     key: "set",
     value: function set(value) {
-      var _Trunk = this.constructor;
-      _Trunk.set(value);
-      // this.elem.setState({[_Trunk.name]: {..._Trunk.store, ...value}});
+      this.constructor.set(value);
     }
   }, {
     key: "store",

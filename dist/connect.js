@@ -12,12 +12,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactors = require('reactors');
-
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40,13 +34,17 @@ var Connector = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Connector)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = _this.props.stores, _temp), _possibleConstructorReturn(_this, _ret);
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Connector)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = _this.props.stores, _this.mounting = true, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Connector, [{
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate() {
+      this.mounting = false;
+    }
+  }, {
     key: 'parseChildProps',
     value: function parseChildProps() {
-      console.log(this.props.stores);
       var props = { trunks: {} };
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
@@ -56,7 +54,8 @@ var Connector = function (_Component) {
         for (var _iterator = Object.keys(this.props.stores)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var store_name = _step.value;
 
-          var store = new this.props.stores[store_name](this);
+          var Store = this.props.stores[store_name];
+          var store = new Store(this, this.mounting);
           props.trunks[store_name] = store;
         }
       } catch (err) {
@@ -79,37 +78,12 @@ var Connector = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        _reactors.View,
-        null,
-        _react2.default.cloneElement(this.props.children, this.parseChildProps())
-      );
+      return _react2.default.cloneElement(this.props.children, this.parseChildProps());
     }
   }]);
 
   return Connector;
 }(_react.Component);
-
-function curryActions(actions, connector) {
-  var curry = {};
-
-  var _loop = function _loop(action_name) {
-    var action = actions[action_name];
-    curry[action_name] = function () {
-      var wrapper = action.apply(undefined, arguments);
-      return wrapper({
-        update: function update(value) {
-          return connector.setState({ value: value });
-        }
-      });
-    };
-  };
-
-  for (var action_name in actions) {
-    _loop(action_name);
-  }
-  return curry;
-}
 
 function connect(Component, stores) {
   return function TrunkOpener(props) {

@@ -7,9 +7,11 @@ export default class Trunk {
       trunk.elem.setState({[this.name]: {...this.store, ...value}})
     );
   }
-  constructor(elem) {
+  constructor(elem, mounting = false) {
     this.elem = elem;
-    this.constructor.trunks.push(this);
+    if (mounting) {
+      this.constructor.trunks.push(this);
+    }
   }
   get store() {
     return this.constructor.store;
@@ -18,8 +20,6 @@ export default class Trunk {
     return this.constructor.store;
   }
   set(value) {
-    const _Trunk = this.constructor;
-    _Trunk.set(value);
-    // this.elem.setState({[_Trunk.name]: {..._Trunk.store, ...value}});
+    this.constructor.set(value);
   }
 }
