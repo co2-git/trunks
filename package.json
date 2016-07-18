@@ -1,6 +1,6 @@
 {
   "name": "trunks",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Minimalistic stores for React",
   "main": "dist/index.js",
   "scripts": {

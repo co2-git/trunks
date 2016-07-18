@@ -19,9 +19,18 @@ var Trunk = function () {
       var _this = this;
 
       this.store = _extends({}, this.store, value);
-      this.trunks.forEach(function (trunk) {
+      this.trunks.filter(function (trunk) {
+        return trunk instanceof _this;
+      }).forEach(function (trunk) {
         return trunk.elem.setState(_defineProperty({}, _this.name, _extends({}, _this.store, value)));
       });
+    }
+  }, {
+    key: "addTrunk",
+    value: function addTrunk(trunk) {
+      if (trunk instanceof this) {
+        this.trunks.push(trunk);
+      }
     }
   }]);
 
@@ -31,8 +40,9 @@ var Trunk = function () {
     _classCallCheck(this, Trunk);
 
     this.elem = elem;
+    this.name = this.constructor.name;
     if (mounting) {
-      this.constructor.trunks.push(this);
+      this.constructor.addTrunk(this);
     }
   }
 
