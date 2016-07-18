@@ -16,7 +16,12 @@ var Trunk = function () {
   _createClass(Trunk, null, [{
     key: "set",
     value: function set(value) {
+      var _this = this;
+
       this.store = _extends({}, this.store, value);
+      this.trunks.forEach(function (trunk) {
+        return trunk.setState(_defineProperty({}, _this.name, _extends({}, _this.store, value)));
+      });
     }
   }]);
 
@@ -24,6 +29,7 @@ var Trunk = function () {
     _classCallCheck(this, Trunk);
 
     this.elem = elem;
+    this.constructor.trunks.push(this);
   }
 
   _createClass(Trunk, [{
@@ -48,4 +54,6 @@ var Trunk = function () {
   return Trunk;
 }();
 
+Trunk.store = {};
+Trunk.trunks = [];
 exports.default = Trunk;

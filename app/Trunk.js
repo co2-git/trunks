@@ -1,9 +1,15 @@
 export default class Trunk {
+  static store = {};
+  static trunks = [];
   static set(value) {
     this.store = {...this.store, ...value};
+    this.trunks.forEach(trunk =>
+      trunk.setState({[this.name]: {...this.store, ...value}})
+    );
   }
   constructor(elem) {
     this.elem = elem;
+    this.constructor.trunks.push(this);
   }
   get store() {
     return this.constructor.store;
