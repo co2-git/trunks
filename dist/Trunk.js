@@ -20,7 +20,7 @@ var Trunk = function () {
 
       this.store = _extends({}, this.store, value);
       this.trunks.forEach(function (trunk) {
-        return trunk.setState(_defineProperty({}, _this.name, _extends({}, _this.store, value)));
+        return trunk.elem.setState(_defineProperty({}, _this.name, _extends({}, _this.store, value)));
       });
     }
   }]);
@@ -42,7 +42,7 @@ var Trunk = function () {
     value: function set(value) {
       var _Trunk = this.constructor;
       _Trunk.set(value);
-      this.elem.setState(_defineProperty({}, _Trunk.name, _extends({}, _Trunk.store, value)));
+      // this.elem.setState({[_Trunk.name]: {..._Trunk.store, ...value}});
     }
   }, {
     key: "store",
