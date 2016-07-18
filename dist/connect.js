@@ -46,13 +46,14 @@ var Connector = function (_Component) {
   _createClass(Connector, [{
     key: 'parseChildProps',
     value: function parseChildProps() {
+      console.log(this.props.stores);
       var props = { trunks: {} };
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = _lodash2.default.keys(this.props.stores)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = Object.keys(this.props.stores)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var store_name = _step.value;
 
           var store = new this.props.stores[store_name](this);
@@ -73,7 +74,6 @@ var Connector = function (_Component) {
         }
       }
 
-      console.log('childProps', props);
       return props;
     }
   }, {

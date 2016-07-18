@@ -1,4 +1,7 @@
 export default class Trunk {
+  static set(value) {
+    this.store = {...this.store, ...value};
+  }
   constructor(elem) {
     this.elem = elem;
   }
@@ -10,13 +13,7 @@ export default class Trunk {
   }
   set(value) {
     const _Trunk = this.constructor;
-    _Trunk.store = {
-      ..._Trunk.store,
-      ...value,
-    };
-    this.elem.setState({[_Trunk.name]: {
-      ..._Trunk.store,
-      ...value,
-    }});
+    _Trunk.set(value);
+    this.elem.setState({[_Trunk.name]: {..._Trunk.store, ...value}});
   }
 }

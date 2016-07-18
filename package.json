@@ -1,12 +1,12 @@
 {
   "name": "trunks",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Minimalistic stores for React",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "babel": "babel --out-dir dist/ app/",
-    "babel-watch": "babel --watch --out-dir dist/ app/"
+    "babel": "babel --presets es2015,stage-0,react --out-dir dist/ app/",
+    "babel-watch": "babel --presets es2015,stage-0,react --watch --out-dir dist/ app/"
   },
   "repository": {
     "type": "git",

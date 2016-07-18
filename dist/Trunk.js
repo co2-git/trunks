@@ -13,6 +13,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Trunk = function () {
+  _createClass(Trunk, null, [{
+    key: "set",
+    value: function set(value) {
+      this.store = _extends({}, this.store, value);
+    }
+  }]);
+
   function Trunk(elem) {
     _classCallCheck(this, Trunk);
 
@@ -28,7 +35,7 @@ var Trunk = function () {
     key: "set",
     value: function set(value) {
       var _Trunk = this.constructor;
-      _Trunk.store = _extends({}, _Trunk.store, value);
+      _Trunk.set(value);
       this.elem.setState(_defineProperty({}, _Trunk.name, _extends({}, _Trunk.store, value)));
     }
   }, {
