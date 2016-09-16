@@ -1,4 +1,5 @@
 export default class Trunk {
+  static id = 0;
   static store = {};
   static trunks = [];
   static set(value) {
@@ -6,6 +7,9 @@ export default class Trunk {
     this.trunks
       .filter(trunk => (trunk instanceof this))
       .forEach(trunk =>
+        // checking if mounted in case unmounted trunk has not yet been
+        //    removed from list of trunks
+        trunk.elem.updater.isMounted(trunk.elem) &&
         trunk.elem.setState({[this.name]: {...this.store, ...value}})
       );
   }
@@ -13,10 +17,14 @@ export default class Trunk {
     if (trunk instanceof this) {
       this.trunks.push(trunk);
     }
+    trunk.elem.componentWillUnmount = () => {
+      this.trunks = this.trunks.filter(_trunk => _trunk.id !== trunk.id);
+    };
   }
   constructor(elem, mounting = false) {
     this.elem = elem;
     this.name = this.constructor.name;
+    this.id = this.constructor.id++;
     if (mounting) {
       this.constructor.addTrunk(this);
     }

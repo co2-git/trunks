@@ -22,15 +22,26 @@ var Trunk = function () {
       this.trunks.filter(function (trunk) {
         return trunk instanceof _this;
       }).forEach(function (trunk) {
-        return trunk.elem.setState(_defineProperty({}, _this.name, _extends({}, _this.store, value)));
+        return(
+          // checking if mounted in case unmounted trunk has not yet been
+          //    removed from list of trunks
+          trunk.elem.updater.isMounted(trunk.elem) && trunk.elem.setState(_defineProperty({}, _this.name, _extends({}, _this.store, value)))
+        );
       });
     }
   }, {
     key: "addTrunk",
     value: function addTrunk(trunk) {
+      var _this2 = this;
+
       if (trunk instanceof this) {
         this.trunks.push(trunk);
       }
+      trunk.elem.componentWillUnmount = function () {
+        _this2.trunks = _this2.trunks.filter(function (_trunk) {
+          return _trunk.id !== trunk.id;
+        });
+      };
     }
   }]);
 
@@ -41,6 +52,7 @@ var Trunk = function () {
 
     this.elem = elem;
     this.name = this.constructor.name;
+    this.id = this.constructor.id++;
     if (mounting) {
       this.constructor.addTrunk(this);
     }
@@ -66,6 +78,7 @@ var Trunk = function () {
   return Trunk;
 }();
 
+Trunk.id = 0;
 Trunk.store = {};
 Trunk.trunks = [];
 exports.default = Trunk;
