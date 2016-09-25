@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -8,29 +8,40 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _immutable = require('immutable');
+
+var _immutable2 = _interopRequireDefault(_immutable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Trunk = function () {
   _createClass(Trunk, null, [{
-    key: "set",
+    key: 'set',
     value: function set(value) {
       var _this = this;
 
-      this.store = _extends({}, this.store, value);
+      for (var field in value) {
+        this.store = this.store.set(field, value[field]);
+      }
       this.trunks.filter(function (trunk) {
         return trunk instanceof _this;
       }).forEach(function (trunk) {
-        return(
-          // checking if mounted in case unmounted trunk has not yet been
-          //    removed from list of trunks
-          trunk.elem.updater.isMounted(trunk.elem) && trunk.elem.setState(_defineProperty({}, _this.name, _extends({}, _this.store, value)))
-        );
+        // checking if mounted in case unmounted trunk has not yet been
+        //    removed from list of trunks
+        trunk.elem.updater.isMounted(trunk.elem) && trunk.elem.setState({
+          changed: trunk.elem.state.changed + 1,
+          trunks: _extends({}, trunk.elem.state.trunks, {
+            stores: _extends({}, trunk.elem.state.trunks.stores, _defineProperty({}, _this.name, _this.store))
+          })
+        });
       });
     }
   }, {
-    key: "addTrunk",
+    key: 'addTrunk',
     value: function addTrunk(trunk) {
       var _this2 = this;
 
@@ -59,17 +70,17 @@ var Trunk = function () {
   }
 
   _createClass(Trunk, [{
-    key: "get",
-    value: function get() {
-      return this.constructor.store;
+    key: 'get',
+    value: function get(prop) {
+      return this.constructor.store.get(prop);
     }
   }, {
-    key: "set",
+    key: 'set',
     value: function set(value) {
       this.constructor.set(value);
     }
   }, {
-    key: "store",
+    key: 'store',
     get: function get() {
       return this.constructor.store;
     }
@@ -79,6 +90,7 @@ var Trunk = function () {
 }();
 
 Trunk.id = 0;
-Trunk.store = {};
+Trunk.store = _immutable2.default.Map({});
+Trunk.map = _immutable2.default.Map;
 Trunk.trunks = [];
 exports.default = Trunk;
