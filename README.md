@@ -13,12 +13,12 @@ import Trunk from 'trunks';
 
 export default class MyTrunk extends Trunk {
   // declare your store here
-  static store = {
+  static store = Trunk.map({
     clicked: 0,
-  };
+  });
 
   click() {
-    this.up({clicked: 1});
+    this.set({clicked: this.get('store') + 1});
   }
 }
 ```
@@ -32,10 +32,11 @@ import Counter from './Counter';
 
 class ClickCounter extends Component {
   render() {
-    const {Counter} = this.props.trunks;
+    const {Counter: CounterStore} = this.props.trunks.stores;
+    const {Counter: CounterActions} = this.props.trunks.actions;
     return (
-      <button onClick={() => Counter.click()}>
-        This button has been clicked {Counter.store.clicked} times
+      <button onClick={() => CounterActions.click()}>
+        This button has been clicked {CounterStore.clicked} times
       </button>
     );
   }

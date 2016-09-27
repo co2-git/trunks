@@ -144,6 +144,5 @@ function connect(Component, stores) {
     );
   }
   TrunkOpener.displayName = Component.displayName || Component.name;
-  console.log('Connecting trunk', TrunkOpener.displayName);
   return TrunkOpener;
 }
